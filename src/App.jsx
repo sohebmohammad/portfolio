@@ -1,16 +1,11 @@
-import { useState } from 'react'
-
+import Header from './components/Header'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <h1 class="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-    </>
+    <div className="min-h-screen bg-[#13141a]">
+      <Header />
+    </div>
   )
 }
 
