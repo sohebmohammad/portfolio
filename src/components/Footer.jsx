@@ -1,15 +1,15 @@
 export default function Footer() {
   return (
-    <footer className="border-t border-[#2e303a] mt-8">
-      <div className="max-w-4xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <footer className="mt-8 border-t border-white/10">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 sm:flex-row">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded bg-purple-600 flex items-center justify-center text-white text-xs font-bold">
+          <div className="flex h-6 w-6 items-center justify-center rounded-md bg-cyan-400 text-xs font-bold text-slate-950">
             {"</>"}
           </div>
-          <span className="text-gray-500 text-sm">Mohammad Soheb</span>
+          <span className="text-sm text-slate-500">Mohammad Soheb</span>
         </div>
-        <p className="text-gray-600 text-xs">
-          © {new Date().getFullYear()} · Built with React & Tailwind CSS
+        <p className="text-xs text-slate-600">
+          Copyright {new Date().getFullYear()} - Built with React and Tailwind CSS
         </p>
       </div>
     </footer>

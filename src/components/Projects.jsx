@@ -1,86 +1,124 @@
 const projects = [
   {
     title: "Portfolio Website",
-    description: "A personal portfolio built with React and Tailwind CSS showcasing projects and skills.",
+    description:
+      "A responsive portfolio focused on clear positioning, project storytelling, and fast navigation for recruiters and clients.",
     tags: ["React", "Tailwind CSS", "Vite"],
-    live: "#",
-    repo: "#",
+    impact: "Improved personal brand, contact clarity, and mobile presentation.",
+    features: ["Responsive UI", "Personal branding", "Contact flow"],
   },
   {
-    title: "E-Commerce App",
-    description: "Full-stack e-commerce platform with cart, auth, and payment integration.",
-    tags: ["Next.js", "Node.js", "MongoDB", "Stripe"],
-    live: "#",
-    repo: "#",
+    title: "Quick Commerce Logistics App",
+    description:
+      "A real-time logistics application for quick-commerce operations with mobile app workflows and an admin dashboard.",
+    tags: ["React Native", "Node.js", "Express.js", "Firebase", "Google Play Console"],
+    impact:
+      "Implemented operational features for order tracking, rider workflows, analytics, and fleet management.",
+    features: [
+      "Order tracking",
+      "Rider performance",
+      "Attendance",
+      "Withdrawals",
+      "Analytics metrics",
+      "EV rider management",
+    ],
   },
   {
-    title: "Task Manager",
-    description: "A real-time collaborative task management app with drag-and-drop support.",
-    tags: ["React", "Express", "PostgreSQL", "Socket.io"],
-    live: "#",
-    repo: "#",
+    title: "Document RAG System",
+    description:
+      "A retrieval-augmented generation system that answers user questions from uploaded documents with source-grounded responses.",
+    tags: ["OpenAI APIs", "LLMs", "Vector Store", "Embeddings", "Node.js", "Firebase"],
+    impact:
+      "Built document ingestion, extraction, chunking, semantic retrieval, and answer generation flows for document-based Q&A.",
+    features: [
+      "Admin document upload",
+      "Ingestion pipeline",
+      "Chunking",
+      "Vector store",
+      "Caching",
+      "Chat continuity",
+      "Source-based answers",
+    ],
+  },
+  {
+    title: "Event Management App",
+    description:
+      "A mobile-first event platform for browsing ongoing events, registering participants, running campaigns, and collecting payments.",
+    tags: ["React Native", "Expo", "Firebase", "Node.js", "Express.js", "Razorpay", "Google Play Console"],
+    impact:
+      "Implemented event listing, group participation, registration workflows, campaign flows, and Razorpay payments.",
+    features: [
+      "Ongoing events",
+      "Event registration",
+      "Private groups",
+      "Public groups",
+      "Group joining",
+      "Event campaigns",
+      "Razorpay payments",
+      "Expo tooling",
+      "Play Console",
+    ],
   },
 ];
 
-function GitHubIcon() {
-  return (
-    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-    </svg>
-  );
-}
-
-function ExternalLinkIcon() {
-  return (
-    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6m0 0v6m0-6L10 14" />
-    </svg>
-  );
-}
-
 export default function Projects() {
   return (
-    <section id="projects" className="max-w-4xl mx-auto px-4 py-12">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-white mb-2">Projects</h2>
-        <p className="text-gray-500 text-sm">Things I've built</p>
+    <section id="projects" className="mx-auto max-w-6xl px-4 py-16">
+      <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div className="max-w-2xl">
+          <p className="text-sm font-semibold uppercase text-cyan-300">Projects</p>
+          <h2 className="mt-2 text-3xl font-bold text-white">Selected projects</h2>
+          <p className="mt-3 text-sm leading-6 text-slate-400">
+            Focused work across portfolio presentation, real-time mobile apps,
+            dashboards, backend integrations, AI document retrieval, and event
+            management workflows.
+          </p>
+        </div>
+        <a
+          href="https://github.com/sohebmohammad"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-lg border border-white/15 px-4 py-2 text-sm font-semibold text-white transition-colors hover:border-white/30 hover:bg-white/5"
+        >
+          View GitHub
+        </a>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {projects.map(({ title, description, tags, live, repo }) => (
-          <div
+      <div className="grid gap-4 md:grid-cols-2">
+        {projects.map(({ title, description, tags, impact, features }) => (
+          <article
             key={title}
-            className="bg-[#1e1f28] border border-[#2e303a] rounded-2xl p-5 flex flex-col gap-3 hover:border-purple-600/40 transition-colors"
+            className="flex min-h-72 flex-col rounded-lg border border-white/10 bg-[#151923] p-5 transition-colors hover:border-cyan-300/30"
           >
-            <h3 className="text-white font-semibold text-base">{title}</h3>
-            <p className="text-gray-400 text-sm leading-relaxed flex-1">{description}</p>
+            <div className="mb-4 h-1 w-12 rounded-full bg-cyan-300" />
+            <h3 className="text-lg font-semibold text-white">{title}</h3>
+            <p className="mt-3 flex-1 text-sm leading-6 text-slate-400">{description}</p>
+            <p className="mt-4 rounded-lg border border-amber-300/15 bg-amber-300/10 p-3 text-xs leading-5 text-amber-100">
+              {impact}
+            </p>
 
-            <div className="flex flex-wrap gap-1.5">
+            <div className="mt-4 grid gap-2 sm:grid-cols-2">
+              {features.map((feature) => (
+                <span
+                  key={feature}
+                  className="rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-2 text-xs text-slate-300"
+                >
+                  {feature}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-xs px-2 py-0.5 rounded-full bg-purple-600/15 text-purple-400 border border-purple-600/20"
+                  className="rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-1 text-xs text-slate-300"
                 >
                   {tag}
                 </span>
               ))}
             </div>
-
-            <div className="flex items-center gap-3 pt-1">
-              <a
-                href={live}
-                className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition-colors"
-              >
-                <ExternalLinkIcon /> Live
-              </a>
-              <a
-                href={repo}
-                className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition-colors"
-              >
-                <GitHubIcon /> Source
-              </a>
-            </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>

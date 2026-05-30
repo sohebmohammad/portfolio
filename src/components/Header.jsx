@@ -1,68 +1,92 @@
-const navLinks = ["Home", "Projects", "Skills", "Contact"];
+import { useState } from "react";
+
+const navLinks = [
+  { label: "Home", href: "#home" },
+  { label: "Experience", href: "#experience" },
+  { label: "Skills", href: "#skills" },
+  { label: "Projects", href: "#projects" },
+  { label: "Contact", href: "#contact" },
+];
 
 export default function Header() {
-  return (
-    <header className="w-full px-4 pt-5">
-      <nav className="max-w-4xl mx-auto bg-[#1e1f28] rounded-2xl px-5 py-3 flex items-center justify-between border border-[#2e303a]">
-        {/* Logo */}
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-purple-600 flex items-center justify-center text-white text-sm font-bold">
-            {"</>"}
-          </div>
-          <span className="text-white font-semibold text-base">Mohammad Soheb</span>
-        </div>
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-        {/* Nav links */}
-        <ul className="flex items-center gap-7">
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0f1117]/85 backdrop-blur-xl">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+        <a href="#home" className="group flex min-w-0 items-center gap-3">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-cyan-300/30 bg-cyan-400 text-sm font-black text-slate-950 shadow-lg shadow-cyan-950/30 transition-transform group-hover:-translate-y-0.5">
+            MS
+          </div>
+          <div className="min-w-0">
+            <p className="truncate text-sm font-semibold text-white sm:text-base">Mohammad Soheb</p>
+            <p className="truncate text-xs text-slate-500">Full-stack Software Engineer</p>
+          </div>
+        </a>
+
+        <ul className="hidden items-center gap-1 rounded-xl border border-white/10 bg-white/[0.04] p-1 shadow-inner shadow-white/5 md:flex">
           {navLinks.map((link) => (
-            <li key={link}>
+            <li key={link.label}>
               <a
-                href={`#${link.toLowerCase()}`}
-                className={`text-sm transition-colors ${
-                  link === "Home"
-                    ? "text-white font-semibold"
-                    : "text-gray-400 hover:text-white"
+                href={link.href}
+                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                  link.label === "Home"
+                    ? "bg-cyan-400 text-slate-950"
+                    : "text-slate-400 hover:bg-white/[0.07] hover:text-white"
                 }`}
               >
-                {link}
+                {link.label}
               </a>
             </li>
           ))}
         </ul>
 
-        {/* Right side */}
-        <div className="flex items-center gap-2">
-          <button className="flex items-center gap-2 border border-[#3a3c47] text-white text-sm px-4 py-1.5 rounded-lg hover:bg-[#2a2b35] transition-colors">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="22" y1="2" x2="11" y2="13" />
-              <polygon points="22 2 15 22 11 13 2 9 22 2" />
-            </svg>
-            Hire me
-          </button>
+        <a
+          href="mailto:sohebmohammadd@gmail.com"
+          className="hidden rounded-lg border border-cyan-400/30 px-4 py-2 text-sm font-semibold text-cyan-100 transition-colors hover:border-cyan-300 hover:bg-cyan-400/10 hover:text-white sm:inline-flex"
+        >
+          Hire me
+        </a>
 
-          <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#2a2b35] rounded-lg transition-colors">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <circle cx="5" cy="12" r="1.5" />
-              <circle cx="12" cy="12" r="1.5" />
-              <circle cx="19" cy="12" r="1.5" />
-            </svg>
-          </button>
-        </div>
+        <button
+          type="button"
+          aria-label="Toggle navigation menu"
+          aria-expanded={isMenuOpen}
+          onClick={() => setIsMenuOpen((open) => !open)}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-slate-300 transition-colors hover:border-cyan-300/40 hover:bg-white/5 hover:text-white md:hidden"
+        >
+          <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            {isMenuOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+            )}
+          </svg>
+        </button>
       </nav>
+
+      {isMenuOpen && (
+        <div className="border-t border-white/10 bg-[#0f1117] px-4 py-3 md:hidden">
+          <div className="mx-auto grid max-w-6xl gap-2">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-white"
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href="mailto:sohebmohammadd@gmail.com"
+              className="mt-1 rounded-lg bg-cyan-400 px-3 py-2 text-center text-sm font-semibold text-slate-950 transition-colors hover:bg-cyan-300"
+            >
+              Hire me
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
