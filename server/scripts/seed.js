@@ -1,9 +1,10 @@
-// Clears InfoCollection and repopulates it from data/portfolio-facts.json.
+// Recreates InfoCollection (using the Gemini embedding function) and
+// populates it from data/portfolio-facts.json.
 // Run with: npm run seed
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import { getCollection } from "../src/services/chroma.js";
+import { getCollection, deleteCollection } from "../src/services/chroma.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -15,13 +16,10 @@ async function main() {
     throw new Error(`No facts found in ${factsPath}`);
   }
 
-  const collection = await getCollection();
+  console.log("Deleting existing collection (if any)...");
+  await deleteCollection();
 
-  const existing = await collection.get({ include: [] });
-  if (existing.ids.length > 0) {
-    console.log(`Deleting ${existing.ids.length} existing record(s)...`);
-    await collection.delete({ ids: existing.ids });
-  }
+  const collection = await getCollection();
 
   const ids = facts.map((_, i) => `fact-${i}`);
   console.log(`Adding ${facts.length} record(s)...`);

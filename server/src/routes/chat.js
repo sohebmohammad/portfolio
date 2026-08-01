@@ -17,14 +17,20 @@ chatRouter.post("/chat", async (req, res) => {
     return res.status(400).json({ error: `'message' must be ${MAX_MESSAGE_LENGTH} characters or fewer.` });
   }
 
+  let contextChunks;
   try {
-    const contextChunks = await retrieveContext(message.trim());
+    contextChunks = await retrieveContext(message.trim());
+  } catch (err) {
+    console.error("[chat] Chroma retrieval failed (query embedding or api.trychroma.com, or huggingface.co model download):", err);
+    return res.status(502).json({ error: "Failed to generate a reply. Please try again." });
+  }
+
+  try {
     const prompt = buildPrompt({ question: message.trim(), contextChunks });
     const reply = await generateAnswer(prompt);
-
     res.json({ reply });
   } catch (err) {
-    console.error("[chat] failed:", err);
+    console.error("[chat] Gemini generation failed (generativelanguage.googleapis.com):", err);
     res.status(502).json({ error: "Failed to generate a reply. Please try again." });
   }
 });
