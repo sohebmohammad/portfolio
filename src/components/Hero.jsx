@@ -1,34 +1,81 @@
 import Typewriter from "./Typewriter";
 
-const heroMessages = [
-  "Software engineer building reliable full-stack web products.",
-  "2 years of hands-on software engineering experience.",
-  "Familiar with modern full-stack technology stacks.",
-  "Completed an AWS and DevOps internship with a project certificate.",
-  "Worked on real-time RAG systems.",
-  "Built mobile applications and released them to the Play Store.",
-  "Tech stack: React.js, Node.js, Express.js, Firebase, and React Native.",
+const roles = [
+  "Full-stack Software Engineer",
+  "React & Node.js Developer",
+  "Mobile App Developer",
+  "API & Firebase Specialist",
 ];
 
 export default function Hero() {
   return (
     <section
       id="home"
-      className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-[1.1fr_0.9fr] md:py-24"
+      className="relative mx-auto flex min-h-[88vh] max-w-6xl flex-col items-start justify-center overflow-hidden px-4 py-20"
     >
-      <div>
-        <div className="mb-5 inline-flex items-center gap-2 rounded-lg border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-200">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
-          Open to software engineering opportunities
-        </div>
+      {/* animated blobs */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <div className="blob blob-1" />
+        <div className="blob blob-2" />
+        <div className="blob blob-3" />
+      </div>
 
-        <Typewriter messages={heroMessages} speed={70} />
+      {/* subtle grid overlay */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.03]"
+        style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "32px 32px" }}
+      />
 
-        <p className="mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
-          I am Mohammad Soheb, a developer focused on React interfaces, API-driven
-          features, and maintainable code that turns product ideas into usable
-          experiences.
-        </p>
+      {/* availability badge */}
+      <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 text-xs font-medium text-emerald-300">
+        <span className="relative flex h-2 w-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+        </span>
+        Open to opportunities
+      </div>
+
+      {/* name */}
+      <p className="mono mb-3 text-sm font-medium tracking-widest text-indigo-400 uppercase">
+        Mohammad Soheb
+      </p>
+
+      {/* typewriter heading */}
+      <div className="mb-6 min-h-25 sm:min-h-30">
+        <h1 className="gradient-text max-w-3xl text-5xl font-black leading-tight tracking-tight sm:text-6xl lg:text-7xl">
+          <Typewriter messages={roles} speed={65} pause={2000} />
+        </h1>
+      </div>
+
+      {/* description */}
+      <p className="mb-10 max-w-xl text-base leading-7 text-slate-400 sm:text-lg">
+        2 years building production web and mobile products — React interfaces,
+        Node.js APIs, Firebase, and React Native apps shipped to the Play Store.
+      </p>
+
+      {/* CTAs */}
+      <div className="flex flex-wrap gap-3">
+        <a
+          href="#projects"
+          className="rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all hover:bg-indigo-500 hover:shadow-indigo-500/40 hover:-translate-y-0.5"
+        >
+          View my work
+        </a>
+        <a
+          href="#contact"
+          className="rounded-lg border border-white/15 px-6 py-3 text-sm font-semibold text-slate-200 transition-all hover:border-white/30 hover:bg-white/5 hover:-translate-y-0.5"
+        >
+          Get in touch
+        </a>
+      </div>
+
+      {/* scroll hint */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-slate-600">
+        <span className="text-[10px] uppercase tracking-widest">Scroll</span>
+        <svg className="h-4 w-4 animate-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
       </div>
     </section>
   );

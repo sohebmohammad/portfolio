@@ -1,22 +1,25 @@
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Experience from './components/Experience'
-import TechStack from './components/TechStack'
 import Projects from './components/Projects'
+import TechStack from './components/TechStack'
+import CodingProfiles from './components/CodingProfiles'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import Reveal from './components/Reveal'
 import './App.css'
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#0f1117] text-slate-300">
+    <div className="min-h-screen bg-[#080c14] text-slate-300">
       <Header />
       <main>
         <Hero />
-        <Experience />
-        <TechStack />
-        <Projects />
-        <Contact />
+        <Reveal><Experience /></Reveal>
+        <Reveal delay={60}><Projects /></Reveal>
+        <Reveal delay={60}><TechStack /></Reveal>
+        <Reveal delay={60}><CodingProfiles /></Reveal>
+        <Reveal delay={60}><Contact /></Reveal>
       </main>
       <Footer />
     </div>

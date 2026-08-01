@@ -1,46 +1,56 @@
-const skillGroups = [
+const groups = [
   {
     title: "Frontend",
-    summary: "Interfaces that are responsive, accessible, and easy to maintain.",
-    items: ["React", "JavaScript", "TypeScript", "Tailwind CSS", "HTML", "CSS"],
+    icon: "◈",
+    color: "text-violet-400 border-violet-500/20 bg-violet-500/8",
+    items: ["React.js", "TypeScript", "JavaScript", "Tailwind CSS", "AngularJS", "HTML", "CSS"],
   },
   {
-    title: "Backend",
-    summary: "APIs and data flows for real product features.",
-    items: ["Node.js", "Express", "Firebase", "MongoDB", "PostgreSQL", "REST APIs"],
+    title: "Backend & Database",
+    icon: "◉",
+    color: "text-cyan-400 border-cyan-500/20 bg-cyan-500/8",
+    items: ["Node.js", "Express.js", "Firebase", "MongoDB", "PostgreSQL", "REST APIs"],
   },
   {
-    title: "Workflow",
-    summary: "Tools that keep code review, debugging, and delivery smooth.",
-    items: ["Git", "Vite", "ESLint", "Deployment", "Testing basics", "Performance"],
+    title: "Mobile",
+    icon: "◐",
+    color: "text-indigo-400 border-indigo-500/20 bg-indigo-500/8",
+    items: ["React Native", "Expo", "Android (Play Store)", "Push Notifications"],
+  },
+  {
+    title: "Tooling & Cloud",
+    icon: "◑",
+    color: "text-amber-400 border-amber-500/20 bg-amber-500/8",
+    items: ["Git", "AWS", "DevOps", "Vite", "Firebase Hosting", "CI/CD"],
   },
 ];
 
 export default function TechStack() {
   return (
-    <section id="skills" className="mx-auto max-w-6xl px-4 py-16">
-      <div className="mb-8 max-w-2xl">
-        <p className="text-sm font-semibold uppercase text-cyan-300">Skills</p>
-        <h2 className="mt-2 text-3xl font-bold text-white">Tools I use to ship better software</h2>
-        <p className="mt-3 text-sm leading-6 text-slate-400">
-          My strongest work is in React-based products, with enough backend and
-          deployment knowledge to move features from idea to production.
+    <section id="skills" className="mx-auto max-w-6xl px-4 py-20">
+      <div className="mb-12 max-w-2xl">
+        <p className="mono mb-2 text-xs font-medium tracking-widest text-indigo-400 uppercase">Stack</p>
+        <h2 className="text-3xl font-bold text-white sm:text-4xl">Skills & Technologies</h2>
+        <p className="mt-3 text-sm leading-6 text-slate-500">
+          Tools I use daily to build, ship, and maintain production-grade software.
         </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
-        {skillGroups.map(({ title, summary, items }) => (
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {groups.map(({ title, icon, color, items }) => (
           <div
             key={title}
-            className="rounded-lg border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-cyan-300/30"
+            className="flex flex-col rounded-xl border border-white/8 bg-[#0d1119] p-5 transition-all hover:border-indigo-500/20 hover:-translate-y-0.5"
           >
-            <h3 className="text-base font-semibold text-white">{title}</h3>
-            <p className="mt-2 text-sm leading-6 text-slate-400">{summary}</p>
-            <div className="mt-5 flex flex-wrap gap-2">
+            <div className="mb-4 flex items-center gap-2.5">
+              <span className={`flex h-8 w-8 items-center justify-center rounded-lg border text-base ${color}`}>{icon}</span>
+              <h3 className="text-sm font-semibold text-white">{title}</h3>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
               {items.map((item) => (
                 <span
                   key={item}
-                  className="rounded-md border border-white/10 bg-[#11151d] px-2.5 py-1 text-xs text-slate-300"
+                  className="mono rounded-md border border-white/8 bg-white/3 px-2.5 py-1 text-[11px] text-slate-400 transition-colors hover:border-indigo-500/30 hover:text-slate-300"
                 >
                   {item}
                 </span>
