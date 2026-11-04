@@ -7,6 +7,7 @@ import CodingProfiles from './components/CodingProfiles'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Reveal from './components/Reveal'
+import ChatWidget from './components/ChatWidget'
 import './App.css'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Reveal delay={60}><Contact /></Reveal>
       </main>
       <Footer />
+      {/* <ChatWidget /> */}
     </div>
   )
 }
