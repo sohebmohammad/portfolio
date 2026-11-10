@@ -1,0 +1,19 @@
+name: My First CI Pipeline
+
+on: [push]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pull the repository code
+        uses: actions/checkout@v4
+
+      - name: Run a one line script
+        run: echo "Hello from soheb mohammad"
+
+      - name: Run a multi line script
+        run: |
+          echo "Step 1 installing the dependencies..."
+          echo "Step 2 Running tests"
