@@ -6,7 +6,9 @@ on:
   push:
     branches: [main]        # every push to main -> CI + deploy
   pull_request:
-    branches: [main]        # every PR into main  -> CI only (deploy is skipped, see below)
+    branches: [main]
+  workflow-dispatch:
+          # every PR into main  -> CI only (deploy is skipped, see below)
 
 jobs:
   # ─────────────────────────────────────────────
