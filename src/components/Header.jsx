@@ -58,7 +58,7 @@ export default function Header() {
           href="https://mail.google.com/mail/?view=cm&to=sohebmohammadd@gmail.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all hover:bg-indigo-500 hover:shadow-indigo-500/30 sm:inline-flex"
+          className="hidden rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition-all hover:bg-emerald-500 hover:shadow-emerald-500/30 sm:inline-flex"
         >
           Hire me
         </a>
@@ -97,7 +97,7 @@ export default function Header() {
               href="https://mail.google.com/mail/?view=cm&to=sohebmohammadd@gmail.com"
           target="_blank"
           rel="noopener noreferrer"
-              className="mt-2 rounded-lg bg-indigo-600 px-3 py-2.5 text-center text-sm font-semibold text-white"
+              className="mt-2 rounded-lg bg-emerald-600 px-3 py-2.5 text-center text-sm font-semibold text-white"
             >
               Hire me
             </a>
