@@ -2,9 +2,7 @@
 name: CI/CD Pipeline
 
 # TRIGGER: when should this pipeline run?
-on:
-  push:
-    branches: [main]        # every push to main -> CI + deploy
+on:      # every push to main -> CI + deploy
   pull_request:
     branches: [main]
   workflow_dispatch:
