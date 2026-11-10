@@ -1,19 +1,111 @@
-name: My First CI Pipeline
+# Name shown in the GitHub "Actions" tab
+name: CI/CD Pipeline
 
-on: [push]
+# TRIGGER: when should this pipeline run?
+on:
+  push:
+    branches: [main]        # every push to main -> CI + deploy
+  pull_request:
+    branches: [main]        # every PR into main  -> CI only (deploy is skipped, see below)
 
 jobs:
-  build-and-test:
+  # ─────────────────────────────────────────────
+  # JOB 1: Frontend (React + Vite, lives in repo root)
+  # ─────────────────────────────────────────────
+  frontend:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Pull the repository code
+      - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Run a one line script
-        run: echo "Hello from soheb mohammad"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'                          # same version as your Dockerfile
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
 
-      - name: Run a multi line script
+      - name: Install dependencies
+        run: npm ci
+
+      # Enable this once `npm run lint` passes locally (it has 8 errors right now)
+      # - name: Lint
+      #   run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+  # ─────────────────────────────────────────────
+  # JOB 2: Backend (Node.js / Express, lives in server/)
+  # Runs at the SAME TIME as the frontend job (parallel)
+  # ─────────────────────────────────────────────
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./server                   # every `run:` below does `cd server` first
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      # No tests yet, so just check the files have no syntax errors
+      - name: Syntax check
         run: |
-          echo "Step 1 installing the dependencies..."
-          echo "Step 2 Running tests"
+          node --check index.js
+          for f in src/*.js; do node --check "$f"; done
+
+  # ─────────────────────────────────────────────
+  # JOB 3: Deploy to the VM over SSH
+  # ─────────────────────────────────────────────
+  deploy:
+    needs: [frontend, backend]                        # wait for BOTH jobs to pass
+    if: github.event_name == 'push'                   # only on push to main, never on PRs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VM_IP }}
+          username: ${{ secrets.VM_USERNAME }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            set -e                                    # stop at the first failing command
+
+            # 1. Go to the project on the VM and get the latest code
+            cd ~/portfolio
+            git pull origin main
+
+            # 2. Frontend: rebuild the Docker image (Vite build + Caddy)
+            docker build -t portfolio-frontend .
+
+            # 3. Replace the running container with one from the new image
+            #    (same name, ports and volumes as the one already on the VM;
+            #     caddy_data keeps the HTTPS certificates between deploys)
+            docker rm -f portfolio || true
+            docker run -d \
+              --name portfolio \
+              --restart unless-stopped \
+              -p 80:80 -p 443:443 -p 443:443/udp \
+              -v caddy_data:/data \
+              -v caddy_config:/config \
+              portfolio-frontend
+
+            # 4. Backend: turn this on once Node + pm2 are installed on the VM
+            #    and the chat widget is enabled (server/.env already exists there)
+            # cd server
+            # npm ci --omit=dev
+            # pm2 restart portfolio-server || pm2 start index.js --name portfolio-server
+            # pm2 save
+
+            # 5. Remove old unused images so the disk doesn't fill up
+            docker image prune -f
